@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-8 ">
+
+		<h1>Products list</h1>
+		
+		{% for item in query_set %}
+			<div class=""> <!-- page-header -->
+				<!-- The hard code L-33-->
+			  
+			  	<h4><a href="{% url 'storage:details' slug=item.slug %}">{{item.item_name}}</a> 
+			  		<small>Daynamic code</small>
+			  	</h4>
+			 	<h4><a href="{{ item.get_absolute_url }}">{{item.item_name}}</a> 
+			 		<small>Absolute Path and reverse</small>
+			 	</h4>
+			</div>
+			
+			<i class="pull-right">{{item.create_date|timesince}}</i><br/>
+			{% if item_image %}
+				<img src="{{item_image.url}}" class="img-responsive">
+			{% endif %}
+			<p>{{item.item_desc|linebreaks|truncatechars:300}}</p>
+			<a href="{% url 'storage:details' slug=item.slug %}">
+				<div class="btn btn-primary pull-right">Read More </div>
+			</a>
+			<br/><hr/>
+
+		{% endfor %}
+
+	</div>
+	
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if query_set.has_previous %}
+            <a href="?page={{ query_set.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ query_set.number }} of {{ query_set.paginator.num_pages }}.
+        </span>
+
+        {% if query_set.has_next %}
+            <a href="?page={{ query_set.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}
+
+

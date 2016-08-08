@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-8">
+			{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+			{% endif %}
+
+			<a href="{% url 'storage:create_new_item'  %}">
+				<button class="btn btn-success">Create</button>
+			</a>
+
+			<a href="{# url 'storage:update_item' #}">
+				<button class="btn btn-warning">Update</button>
+			</a>
+
+			<a href="/item_name/{{instance.id}}/">
+				<button class="btn btn-danger">Delete</button>
+			</a>
+
+			<h3>{{title}} <small class="pull-right"><i>{{create_date}}</i></small></h3>
+			{% if item_image %}
+				<img src="{{instance.url}}" class="img-responsive">
+			{% endif %}
+			<p>{{content|linebreaks}}</p>
+			
+			
+			<a href="{% url 'storage:item_list' %}">
+				<button class="btn btn-info pull-right">Return</button>
+			</a>
+	</div>
+</div>
+{% endblock content %}
