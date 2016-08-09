@@ -16,7 +16,7 @@ def item_list(request):
 
 	return render(request, 'item_list.html', context)
 
-def create_new_item(request):
+def add_new_item(request):
 	form = ItemForm(request.POST or None)
 	if form.is_valid():
 		obj_form = form.save(commit=False)
@@ -28,15 +28,17 @@ def create_new_item(request):
 		'form': form,
 	}
 
-	return render(request, 'create_item.html', context)
+	return render(request, 'add_item_form.html', context)
 
 def item_details(request, slug=None):
 	instance_obj = get_object_or_404(Item, slug=slug)
 
 	context = {
-		'title': instance_obj.item_name,
+		'item': instance_obj.item_name,
 		'content': instance_obj.item_desc,
 		'create_date': instance_obj.create_date,
+		'image': instance_obj.item_image,
+		'slug':instance_obj.slug
 	}
 	return render(request, 'item_detail.html', context)
 
@@ -53,11 +55,11 @@ def update_item(request, slug=None):
 		messages.success(request, 'Successfully Updated ')
 		return HttpResponseRedirect(obj_form.get_absolute_url())
 	context = {
-		'title': instance.item_name,
+		'item': instance.item_name,
 		'instance': instance,
 		'form': form,
 	}
-	return render(request, 'create_item.html', context)
+	return render(request, 'update_item.html', context)
 
 
 def delete_item(request, slug=None):

@@ -19,8 +19,10 @@ from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from storage.views import *
+
 urlpatterns = [
-	url(r'', include('storage.urls', namespace='storage')),
+	url(r'', include('storage.urls', namespace='storage')), 
     url(r'^admin/', admin.site.urls),
 ]
 

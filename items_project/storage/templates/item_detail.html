@@ -11,21 +11,21 @@
 			</ul>
 			{% endif %}
 
-			<a href="{% url 'storage:create_new_item'  %}">
+			<a href="{% url 'storage:add_new_item'  %}">
 				<button class="btn btn-success">Create</button>
 			</a>
-
-			<a href="{# url 'storage:update_item' #}">
+		
+			<a href="{% url 'storage:update_item' slug=slug %}">
 				<button class="btn btn-warning">Update</button>
 			</a>
-
-			<a href="/item_name/{{instance.id}}/">
+			
+			<a href="{% url 'storage:delete_item' slug=slug %}">
 				<button class="btn btn-danger">Delete</button>
 			</a>
 
 			<h3>{{title}} <small class="pull-right"><i>{{create_date}}</i></small></h3>
-			{% if item_image %}
-				<img src="{{instance.url}}" class="img-responsive">
+			{% if image %}
+				<img src="{{image.url}}" class="img-responsive">
 			{% endif %}
 			<p>{{content|linebreaks}}</p>
 			
